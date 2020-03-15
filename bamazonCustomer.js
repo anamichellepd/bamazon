@@ -37,17 +37,47 @@ function queryAllProducts() {
 }
 
 //function to ask the client the first questions
-function placeOrder(product_id, price) {
-  inquirer.prompt([
-    {
-      type: "input",
-      name: "item",
-      message: "ID of product you would like to buy"
-    },
-    {
-      type: "input",
-      name: "units",
-      message: "How many units of the product would you like?"
-    }
-  ]);
+function placeOrder() {
+  connection.query("SELECT * FROM products", function(err, res) {
+    if (err) throw err;
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "productID",
+          message: "ID of product you would like to buy"
+        },
+        {
+          type: "input",
+          name: "units",
+          message: "How many units of the product would you like?"
+        }
+      ])
+      .then(function(answer) {
+        connection.query(
+          "SELECT stock_quantity FROM products WHERE product_ID = ?",
+          [answer.productID],
+          function(error, results, fields) {
+            var amountLeft = results[0].stock_quantity;
+            if (answer.units > amountLeft) {
+              console.log("Not enough inventory, try again.");
+              placeOrder();
+            } else {
+              connection.query("UPDATE products SET ? WHERE ?", [
+                { stock_quantity: amountLeft - answer.units },
+                { product_id: answer.productID }
+              ]);
+
+              console.log(amountLeft + " units left");
+            }
+          }
+        );
+
+        // if (answer.units >= results.stock_quantity) {
+        //   console.log("omg it's working");
+        // }
+      });
+  });
 }
+
+//function to check how much is left and process request
