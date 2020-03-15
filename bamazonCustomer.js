@@ -55,10 +55,11 @@ function placeOrder() {
       ])
       .then(function(answer) {
         connection.query(
-          "SELECT stock_quantity FROM products WHERE product_ID = ?",
+          "SELECT stock_quantity, price FROM products WHERE product_ID = ?",
           [answer.productID],
           function(error, results, fields) {
             var amountLeft = results[0].stock_quantity;
+            var purchaseTotal = answer.units * results[0].price;
             if (answer.units > amountLeft) {
               console.log("Not enough inventory, try again.");
               placeOrder();
@@ -68,7 +69,9 @@ function placeOrder() {
                 { product_id: answer.productID }
               ]);
 
-              console.log(amountLeft + " units left");
+              console.log(
+                "The total cost of your purchase is $" + purchaseTotal
+              );
             }
           }
         );
