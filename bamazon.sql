@@ -30,4 +30,4 @@ VALUES
     (789, "Shampoo", "Beauty", "43", 190),
     (890, "Necklace", "Accessories", "54", 452),
     (901, "Toothpaste", "Dental care", "7", 432),
-    (012, "Potato", "Organic Produce", "9", 654);
+    (112, "Potato", "Organic Produce", "9", 654);

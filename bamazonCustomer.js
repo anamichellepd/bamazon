@@ -1,4 +1,5 @@
 var mysql = require("mysql");
+var inquirer = require("inquirer");
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -27,12 +28,26 @@ function queryAllProducts() {
           res[i].product_name +
           " | " +
           "Price: $" +
-          res[i].price +
-          " | " +
-          "Stock quantity: " +
-          res[i].stock_quantity
+          res[i].price
       );
     }
-    console.log("--------------------------");
+    console.log("---------------------------------------");
+    placeOrder();
   });
+}
+
+//function to ask the client the first questions
+function placeOrder(product_id, price) {
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "item",
+      message: "ID of product you would like to buy"
+    },
+    {
+      type: "input",
+      name: "units",
+      message: "How many units of the product would you like?"
+    }
+  ]);
 }
