@@ -19,7 +19,7 @@ CREATE TABLE products
 );
 
 INSERT INTO products
-    (product_id, product_name, department_name, price, stock_quantity)
+    (product_id, product_name, department_name, price, stock_quantity, product_sales)
 VALUES
     (123, "Toilet paper", "Household items", "20", 100),
     (234, "Paper towels", "Household items", "14.50", 120),
@@ -31,3 +31,15 @@ VALUES
     (890, "Necklace", "Accessories", "54", 452),
     (901, "Toothpaste", "Dental care", "7", 432),
     (112, "Potato", "Organic Produce", "9", 654);
+
+CREATE TABLE departments
+(
+    department_id VARCHAR (100) NULL,
+    department_name VARCHAR (100) NULL,
+    over_head_costs VARCHAR (100) NULL
+);
+
+INSERT INTO departments
+    (department_id, department_name, over_head_costs)
+VALUES
+    (1, "Sales", 3000);

@@ -68,6 +68,11 @@ function placeOrder() {
                 { stock_quantity: amountLeft - answer.units },
                 { product_id: answer.productID }
               ]);
+              connection.query("UPDATE products SET ? WHERE ?", [
+                {
+                  product_sales: purchaseTotal
+                }
+              ]);
 
               console.log(
                 "The total cost of your purchase is $" + purchaseTotal
@@ -75,5 +80,6 @@ function placeOrder() {
             }
           }
         );
-
-
+      });
+  });
+}
