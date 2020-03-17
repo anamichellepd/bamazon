@@ -61,7 +61,7 @@ function placeOrder() {
             var amountLeft = results[0].stock_quantity;
             var purchaseTotal = answer.units * results[0].price;
             if (answer.units > amountLeft) {
-              console.log("Not enough inventory, try again.");
+              console.log("NInsufficient quantity!");
               placeOrder();
             } else {
               connection.query("UPDATE products SET ? WHERE ?", [
@@ -76,11 +76,4 @@ function placeOrder() {
           }
         );
 
-        // if (answer.units >= results.stock_quantity) {
-        //   console.log("omg it's working");
-        // }
-      });
-  });
-}
 
-//function to check how much is left and process request
