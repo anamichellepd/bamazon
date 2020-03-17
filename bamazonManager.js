@@ -108,14 +108,11 @@ function addToInventory() {
     ])
     .then(function(answer) {
       connection.query(
-        "UPDATE products SET stock_quantity = ? WHERE product_id =?",
-        function(err, res) {
-          //   if (err) {
-          //     console.log("error", err);
-          //   }
-          console.log(res);
-
-          [answer.units, answer.productID];
+        "UPDATE products SET stock_quantity = stock_quantity + ? WHERE product_id =?",
+        [answer.units, answer.productID],
+        function(err, results, fields) {
+          if (err) throw err;
+          console.log(results);
         }
       );
     });
