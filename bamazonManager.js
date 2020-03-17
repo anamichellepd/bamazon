@@ -98,7 +98,7 @@ function addToInventory() {
       {
         type: "input",
         name: "productID",
-        message: "ID of product you would like to add"
+        message: "ID of product you would like to add to"
       },
       {
         type: "input",
@@ -112,7 +112,11 @@ function addToInventory() {
         [answer.units, answer.productID],
         function(err, results, fields) {
           if (err) throw err;
-          console.log(results);
+          console.log(
+            answer.units +
+              " units have been added to ID number: " +
+              answer.productID
+          );
         }
       );
     });

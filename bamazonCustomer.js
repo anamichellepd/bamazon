@@ -61,17 +61,12 @@ function placeOrder() {
             var amountLeft = results[0].stock_quantity;
             var purchaseTotal = answer.units * results[0].price;
             if (answer.units > amountLeft) {
-              console.log("NInsufficient quantity!");
+              console.log("Insufficient quantity!");
               placeOrder();
             } else {
               connection.query("UPDATE products SET ? WHERE ?", [
                 { stock_quantity: amountLeft - answer.units },
                 { product_id: answer.productID }
-              ]);
-              connection.query("UPDATE products SET ? WHERE ?", [
-                {
-                  product_sales: purchaseTotal
-                }
               ]);
 
               console.log(
