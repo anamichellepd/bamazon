@@ -6,7 +6,8 @@ var connection = mysql.createConnection({
   port: 3306,
   user: "root",
   password: "myrootpassword",
-  database: "bamazon"
+  database: "bamazon",
+  multipleStatements: true
 });
 
 //connect
@@ -37,4 +38,16 @@ function getStarted() {
           createNewDepartment();
       }
     });
+}
+
+function viewProductSalesByDepartment() {
+  connection.query("SELECT * FROM departments; SELECT 2", function(
+    error,
+    results,
+    fields
+  ) {
+    if (error) throw error;
+    console.log(results[0]);
+    console.log(results[1]);
+  });
 }

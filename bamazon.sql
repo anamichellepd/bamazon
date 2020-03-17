@@ -15,7 +15,8 @@ CREATE TABLE products
     price DECIMAL
 (10,2) NULL,
     stock_quantity DECIMAL
-(10)NULL
+(10)NULL,
+    product_sales VARCHAR (100) NULL
 );
 
 INSERT INTO products
